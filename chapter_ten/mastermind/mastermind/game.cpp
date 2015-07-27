@@ -49,6 +49,6 @@ int compare_num(std::vector<int> a, std::vector<int> b){
 		return pos_num;
 	}
 	else{
-		return pos_num - bulls;
+		return pos_num;
 	}
 }
