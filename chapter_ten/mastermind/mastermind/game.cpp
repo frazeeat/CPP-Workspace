@@ -31,25 +31,48 @@ int compare_pos_and_num(std::vector<int> a, std::vector<int> b){
 	return pos_num;
 }
 
-int compare_num(std::vector<int> a, std::vector<int> b){
-	int pos_num = 0, temp = -1;
+/*int compare_num(std::vector<int> a, std::vector<int> b){
+int pos_num = 0, temp = -1;
 
+for (int i = 0; i < a.size(); i++){
+if (a[i] != b[i] && a[i] != temp){
+if (std::find(b.begin(), b.end(), a[i]) == b.end()){
+}
+else{
+pos_num++;
+temp = a[i];
+}
+}
+else{
+pos_num--;
+temp = -1;
+}
+}
+if (pos_num < 0){
+return 0;
+}
+return pos_num;
+
+}*/
+
+int compare_num(std::vector<int> a, std::vector<int> b){
+	int pos_num = 0;
+	std::vector<int> c, d; // a is c and b is d
 	for (int i = 0; i < a.size(); i++){
-		if (a[i] != b[i] && a[i] != temp){
-			if (std::find(b.begin(), b.end(), a[i]) == b.end()){
-			}
-			else{
-				pos_num++;
-				temp = a[i];
-			}
+		if (a[i] != b[i]){
+			c.push_back(a[i]);
+			d.push_back(b[i]);
+		}
+	}
+	for (int j = 0; j < c.size(); j++){
+		if (std::find(d.begin(), d.end(), c[j]) == d.end()){
 		}
 		else{
-			pos_num--;
+			pos_num++;
+
 		}
 	}
-	if (pos_num < 0){
-		return 0;
-	}
 	return pos_num;
-
 }
+
+
