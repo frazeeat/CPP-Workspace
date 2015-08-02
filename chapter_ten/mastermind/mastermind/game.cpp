@@ -69,7 +69,7 @@ int compare_num(std::vector<int> a, std::vector<int> b){
 		}
 		else{
 			pos_num++;
-
+			d.erase(std::remove(d.begin(), d.end(), c[j]), d.end());
 		}
 	}
 	return pos_num;
