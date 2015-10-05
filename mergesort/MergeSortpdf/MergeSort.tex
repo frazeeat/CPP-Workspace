@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{color}
+\usepackage{listings}
+\lstset{ %
+language=C++,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,           % adds a frame around the code
+tabsize=2,          % sets default tabsize to 2 spaces
+captionpos=b,           % sets the caption-position to bottom
+breaklines=true,        % sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\%*}{*)}          % if you want to add a comment within your code
+}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\begin{document}
+	\begin{flushleft}
+		Adam Frazee \\*
+		CSE 464\\*
+		Gregory Gelfond\\*
+		10/4/2015\\*
+	\end{flushleft}
+	\begin{center}
+		\LARGE{\textbf{Mergesort Algorithm}}
+	\end{center}
+	\large{\textbf{History:}} The mergesort algorithm was invented by
+	 John von Neumann in 1945. This divide and conquer algorithm takes an 
+	 unsorted data structure, and then returns one that is sorted. The 
+	 big O cost of sorting in this fashion is $O(n log(n))$ . To break 
+	 down this complexity we must understand how the algorithm sorts. 
+	 Mergesort first splits your data structure into pieces until you 
+	 have sub pieces of 1. By definition we will consider these pieces 
+	 sorted. The operation of splitting costs $O(log(n))$. Then it must 
+	 compare items while combining. The comparison operation cost $O(n)$ 
+	 since you are comparing every in the data structure. It is important 
+	 to note that mergesort will keep this complexity for any data size. 
+	 This is in comparison to quick sort. Which has an average case of 
+	 $O(n log(n))$. However depending on the way data is sorted, and the 
+	 implementation of that algorithm we get a best case of  $O(n)$ and a 
+	 worst case of $O(n^2)$.
+	\\
+	\\*	
+	\large{\textbf{Formulating the problem:}}Given a group A of 0 to N 
+	objects. We would like to sort them in a way that $\forall \; i,j \; 
+	0 \leq i < j < N \; S.T A[i]\leq A[j] $.
+	\\
+	\\*
+	\large{\textbf{Pseudo Code:}
+	\begin{algorithm}
+		\caption{Mergesort}
+		\begin{algorithmic}[1]
+			\Procedure{mergesort}{A[]}
+			\If {A[].size() == 1} \Return A[] \EndIf
+			\While {(A[].size()$\;$ $>$ 1)}
+				\State left is an array with range [0,$N/2$] //floor math
+				\State right is an array with range [$(N/2)+1 , N$]
+				\State
+				\State left = mergesort(left)
+				\State right = mergesort(right)
+				\State 
+				\State \Return merge(left,right)
+			\EndWhile
+			\EndProcedure
+			\Procedure{merge}{A[],B[]}
+			\State C[] is an empty array
+			\While{(A[] \&\& B[] has elements)}
+				\If{(A[0] $<$ B[0])}
+					\State place B[0] at the end of C
+					\State remove B[0]
+				\Else
+					\State add A[0] to the end of C[]
+					\State remove A[0] from A[] 
+				\EndIf
+			\While{(A[].size() != 0)}
+				\State add A[0] to the end of C[]
+				\State remove A[0] from A[]
+			\EndWhile
+		
+		\While{(B[].size() != 0)}
+			\State add B[0] to the end of C[]
+			\State remove B[0] from B[]
+		\EndWhile
+				
+				
+			\EndWhile
+			
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+\\*
+\large{\textbf{Loop Invariant:}} While all arrays split down to size one . We look at $k$ which is an element in A[]. When merging and placing elements we know that the smallest element will always  be on the left. Since this happens at the base case. You can assume that all elements will sort themselves from right(least) to left(most).
+\\
+\\*
+\large{\textbf{Formulating Correctness:}} \\\textbf{Base Case:} $N = 1$ an array of this length is sorted by definition.\\* \textbf{Inductive Hypothesis:}\\*
+\indent Assume that the elements n=0,1,2,3...k are sorted in ascending order.
+\\* \large{\textbf{Inductive Step:}}\\*
+\indent So does mergesort sort when $k \to k+1$ still return a sorted array. So we have an array of A[0] to A[k+1]. This array is divided into two halves. All the way down to our base case.We have proved that our base case is sorted. Thus making it valid.\\
+\\*
+\large{\textbf{Code:}} main.cpp
+
+\begin{lstlisting}
+#include <stdlib.h>
+#include <list>
+#include <string>
+#include <iostream>
+#include "main.h"
+#include <time.h>       /* time */
+
+int main(){
+	std::list<int> return_list, list;
+	std::string logic;
+	std::list<int>::iterator it;
+	std::cin >> logic;
+
+	if (logic == "create"){
+		return_list = input_list();
+	}
+	if (logic == "random"){
+		return_list = random_list();
+	}
+	std::cout << "The inut contains:";
+	for (it = return_list.begin(); it != return_list.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
+	list = mergesort(return_list);
+
+	std::cout << "The return contains:";
+	for (it = list.begin(); it != list.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+	bool flag = true;
+	system("PAUSE");
+	return 0;
+}
+std::list<int> input_list(){
+	std::list<int> r_list;
+	int a;
+	while (std::cin >> a){
+		r_list.push_back(a);
+	}
+	return r_list;
+
+
+}
+
+std::list<int> random_list(){
+	std::list<int> list;
+	srand(time(NULL));
+	int rand_num = rand()%50;
+
+	for (int i = 0; i < rand_num; i++){
+		int push_num = rand() % 9999999;
+		list.push_back(push_num);
+	}
+	return list;
+}
+
+std::list<int> mergesort(std::list<int> & list_a){
+	std::list<int> left,right;
+	std::list<int>::iterator it;
+	int size = list_a.size();
+	//spilt down to a certain size.
+	it = list_a.begin();
+	if (list_a.size() == 1){
+		return list_a;
+	}
+	while (list_a.size() > 1){
+		for (int i = 0; i < size / 2; i++){
+			left.push_back(list_a.front());
+			list_a.pop_front();
+		}
+		left = mergesort(left);
+		right = mergesort(list_a);
+
+		return merge(left,right);
+	}
+
+
+}
+
+std::list<int> merge(std::list<int>& a ,std::list<int>& b){
+	std::list<int> list_c;
+	std::list<int>::iterator it_a, it_b;
+	it_a = a.begin();
+	it_b = b.begin();
+	while (a.size() != 0 && b.size() != 0){
+		if (a.front() < b.front()){
+			list_c.push_back(a.front());
+			a.pop_front();
+		}
+		else{
+			list_c.push_back(b.front());
+			b.pop_front();
+		}
+	}
+	while (a.size() !=0){
+		list_c.push_back(a.front());
+		a.pop_front();
+	}
+	while (b.size() != 0){
+		list_c.push_back(b.front());
+		b.pop_front();
+	}
+	return list_c;
+}
+\end{lstlisting}
+main.h
+\begin{lstlisting}
+#include <stdlib.h>
+#include<list>
+#ifndef MAIN_H_
+#define MAIN_H_
+
+std::list<int> mergesort(std::list<int>& list_a);
+std::list<int> merge(std::list<int>& a, std::list<int>& b);
+std::list<int> random_list();
+std::list<int> input_list();
+
+#endif
+\end{lstlisting}
+\large{\textbf{How to Compile:}} I will be uploading the complete Microsoft visual studio solution file. You can open on any Benton lab and compile there. If you are running on windows you can take the compiled .exe and run it. It will not run on linux or Mac because of a system call used at the end of main. 
+
+	    
+
+\end{document}
