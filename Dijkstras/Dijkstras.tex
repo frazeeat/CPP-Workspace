@@ -33,13 +33,14 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 	\begin{center}
 		\LARGE{\textbf{Dijkstra's Algorithm}}
 	\end{center}
-	\textbf{Formulate The Problem:} Dijkstra's Algorithm is an algorithm used to determine the shortest path between two nodes. In this algorithm we have a graph (G) which is a data structure for holding nodes or (V) vertices, and also has Edges (E). E's have a weight or cost associated with them (W). The source and destination are both nodes in the graph G. They are connected through a path of E's.Another way of looking at Dijkstra's Algorithm is as finding a path of V's where the sum E's W associated with those V's is the minimum possible.  \\ \\*
+	\textbf{Formulate The Problem:} Dijkstra's Algorithm is an algorithm used to determine the shortest path between two nodes. In this algorithm we have a graph (G) which is a data structure for holding nodes or (V) vertices, and also has Edges (E). E's have a weight or cost associated with them (W). The source and destination are both nodes in the graph G. They are connected through a path of E's. V's have a value associated with them is the cost to get to that node from the source node. This means that $V_{Source}$ has a value of 0, and all other V have a value of $\infty$ . At the start of the Algorithm. \\ \\*
 		\large{\textbf{Pseudo Code:}
 	\begin{algorithm}
 		\caption{Dijkstra}
 		\begin{algorithmic}[1]
 			\Procedure{Dijkstra}{G,$V_{Source}$,$V_{Destination}$}
-		
+			\State $V_{All} \leftarrow \infty $
+			\State  $V_{Source} \leftarrow 0$
 			
 			\EndProcedure
 		\end{algorithmic}
