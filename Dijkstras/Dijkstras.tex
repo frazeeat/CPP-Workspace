@@ -33,16 +33,37 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 	\begin{center}
 		\LARGE{\textbf{Dijkstra's Algorithm}}
 	\end{center}
-	\textbf{Formulate The Problem:} Dijkstra's Algorithm is an algorithm used to determine the shortest path between two nodes. In this algorithm we have a graph (G) which is a data structure for holding nodes or (V) vertices, and also has Edges (E). E's have a weight or cost associated with them (W). The source and destination are both nodes in the graph G. They are connected through a path of E's. V's have a value associated with them is the cost to get to that node from the source node. This means that $V_{Source}$ has a value of 0, and all other V have a value of $\infty$ . At the start of the Algorithm. \\ \\*
+	\textbf{Formulate The Problem:} Dijkstra's Algorithm is an algorithm used to determine the shortest path between two nodes. In this algorithm we have a graph (G) which is a data structure for holding nodes or (V) vertices, and also has Edges (E). E's have a weight or cost associated with them (W). The source and destination are both nodes in the graph G. V's have a value associated with them is the cost to get to that node from the source node. This means that $V_{Source}$ has a value of 0, and all other V have a value of $\infty$ . At the start of the Algorithm.  \\ \\*
 		\large{\textbf{Pseudo Code:}
 	\begin{algorithm}
 		\caption{Dijkstra}
 		\begin{algorithmic}[1]
 			\Procedure{Dijkstra}{G,$V_{Source}$,$V_{Destination}$}
-			\State $V_{All} \leftarrow \infty $
-			\State  $V_{Source} \leftarrow 0$
+			\For{each v $\in$ V}
+			\If {v $\equiv V_{source}$}
+			\State v.cost $ \leftarrow 0$
+			\EndIf
+			\State v.cost $ \leftarrow \infty$
+			\State  P-Que $\leftarrow $v 
+			\EndFor
+			
+			\While { P-Que has elements}
+			\State $V_{cur} \leftarrow$ P-Que.pop
+			\If {$V_{cur} \equiv V_{Destination} $}
+			\State break
+			\For { each neighbor $n$ of $V_{cur}$}
+			\State $dist \leftarrow V_{cur}.cost + length(V_{cur},n)$
+			\If{$n.cost > dist$}
+			\State $dArray[n.cost] \leftarrow dist$
+			\State $pArray[n] \leftarrow V_{cur}$
+			\EndIf
+			\EndFor 
+			\EndIf
+			\EndWhile
+			\State return $dArray,pArray$
 			
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
+	\\* \textbf{Proof of Correctness:} 
 \end{document}
